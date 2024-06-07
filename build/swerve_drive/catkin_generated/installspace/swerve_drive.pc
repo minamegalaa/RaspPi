@@ -1,0 +1,8 @@
+prefix=/home/mina/mina_ws/install
+
+Name: swerve_drive
+Description: Description of swerve_drive
+Version: 0.1.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs sensor_msgs geometry_msgs dynamixel_workbench_msgs dynamixel_workbench_toolbox

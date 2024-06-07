@@ -1,0 +1,2 @@
+Ros-Noetic-RPLidar:robopeak:ros_remote_pkg
+-DCATKIN_DEVEL_PREFIX=/home/mina/mina_ws/devel -DCMAKE_INSTALL_PREFIX=/home/mina/mina_ws/install -G Unix Makefiles

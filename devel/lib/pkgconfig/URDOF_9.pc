@@ -1,0 +1,8 @@
+prefix=/home/mina/mina_ws/devel
+
+Name: URDOF_9
+Description: Description of URDOF_9
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
