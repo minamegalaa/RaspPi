@@ -1,20 +1,6 @@
 #include <ros.h>
-#include <std_msgs/Int32.h>
-#include "CytronMotorDriver.h"
-#include <Servo.h>
-
-// Configure the motor driver.
-CytronMD leftmotor(PWM_DIR, 5, 4);  
-CytronMD rightmotor(PWM_DIR, 6, 7);  
-//encoder interrupt pins
-int encoderPinLeft=2;  
-int encoderPinRight=3;  
-int ENA=8;
-int ENB=9;
-//left encoder pulses
-volatile unsigned long totalPulsesLeft = 0;
-//right encoder pulses
-volatile unsigned long totalPulsesRight = 0;
+  
+                      ;
 //left servo angle
 volatile unsigned long AngleLeft = 0;
 //right servo angle
@@ -59,10 +45,10 @@ std_msgs::Int32 rightEncoderROS;
 ros::Publisher rightEncoderROSPublisher("right_encoder_pulses", &rightEncoderROS);
 
 //left angle publisher
-std_msgs::Int32 leftAngleROS;
+std_msgs::String leftAngleROS;
 ros::Publisher leftAngleROSPublisher("left_angle", &leftAngleROS);
 //right angle publisher
-std_msgs::Int32 rightAngleROS;
+std_msgs::String rightAngleROS;
 ros::Publisher rightAngleROSPublisher("right_angle", &rightAngleROS);
 
 
@@ -145,8 +131,8 @@ leftAngleROSPublisher.publish(&leftAngleROS);
 
 rightAngleROS.data = AngleRight;
 rightAngleROSPublisher.publish(&rightAngleROS);
-Serial.println(motorVelocityLeft);
-Serial.println(motorVelocityRight);
+ServoLeft();
+
 
 
 delay(5);
@@ -170,12 +156,42 @@ void interruptFunctionRight(){
         }
 }
 void ServoLeft(){
-        if(posleft < 0){
-          AngleLeft--;
+        if(motorVelocityRight == 0) {
+          AngleRight = "SS";
         }
-        if(posleft > 0){
-          AngleLeft++;
+        else if(posright == 45){
+          if(motorVelocityRight > 0){
+            AngleRight = "BR";
+          }
+          if(motorVelocityRight < 0){
+            AngleRight = "FL";
+          }
         }
+        else if(posright == 135){
+          if(motorVelocityRight > 0){
+            AngleRight = "FR";
+          }
+          if(motorVelocityRight < 0){
+            AngleRight = "BL";
+          }
+        }
+        else if(posright == 90){
+          if(motorVelocityRight > 0){
+            AngleRight = "RR";
+          }
+          if(motorVelocityRight < 0){
+            AngleRight = "LL";
+          }
+        }
+        else {
+          if(motorVelocityRight > 0){
+            AngleRight = "FF";
+          }
+          if(motorVelocityRight < 0){
+            AngleRight = "BB";
+          }
+        }
+        
         
 }
 void ServoRight(){
